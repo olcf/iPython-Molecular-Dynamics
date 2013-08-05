@@ -33,3 +33,10 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# Vim
+*.swo
+*.swp
+
+# iPython MD Output
+output.*
