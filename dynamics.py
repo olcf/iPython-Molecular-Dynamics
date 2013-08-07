@@ -1,5 +1,6 @@
 # dynamics module
 import numpy
+import particle_storage
                                         
 def calculate_force_matrix(particles, potential):
     num_particles = len(particles)
@@ -40,3 +41,19 @@ def generate_accelerations(particles, potential, masses):
     force_matrix = calculate_force_matrix(particles, potential)
     forces = sum_forces(force_matrix)
     return calculate_accelerations(masses, forces)
+
+def update_position(stepsize, potential, position, velocity, acceleration):
+    """ Part 1 of the Velocity Verlet Algorithm """
+    v_plus_one_half = velocity + 0.5 * acceleration * stepsize
+    x_plus_one = position + v_plus_one_half * stepsize
+    return [x_plus_one, v_plus_one_half]
+    
+def update_positions(stepsize, potential, particles):
+    temporary_particles = []
+    for particle in particles:
+        position = particle["position"]
+        velocity = particle["velocity"]
+        acceleration = particle["acceleration"]
+        (position, velocity) = update_position(stepsize, potential, position, velocity, acceleration)
+        temporary_particles.append(particle_storage.store_single_particle(position, velocity, acceleration))
+        
