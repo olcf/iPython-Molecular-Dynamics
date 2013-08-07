@@ -4,7 +4,7 @@ import particle_storage
                                         
 def calculate_force_matrix(particles, potential):
     num_particles = len(particles)
-    force_matrix = numpy.zeroes((num_particles,num_particles))
+    force_matrix = numpy.zeros((num_particles,num_particles,3))
     for i in range(0,num_particles):
         for j in range(0,num_particles):
             if (i < j):

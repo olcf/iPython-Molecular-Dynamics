@@ -14,12 +14,6 @@ def transform_initial_data_to_numerical_arrays(particles):
     for i in range(0,num_particles):
         for key in ["position","velocity"]:
             particles[i][key] = numpy.array(particles[i][key])
-            
-def embed_initial_accelerations(particle_data, potential, masses):
-    accelerations = dynamics.generate_accelerations(particle_data, potential, masses)
-    num_particles = len(particle_data)
-    for i in range(0,num_particles):
-        particle_data[i]["acceleration"] = accelerations[i]
     
 def update_positions(stepsize, particles):
     temporary_particles = []
@@ -52,10 +46,10 @@ def update_accelerations(particles, potential, masses):
 def main(stepsize, duration, potential, initial_particle_data):
     transform_initial_data_to_numerical_arrays(initial_particle_data["particles"])
     masses = extract_particle_masses(initial_particle_data["particles"])
-    embed_initial_accelerations(initial_particle_data["particles"], potential, masses)
+    initial_particle_data["particles"] = update_accelerations(initial_particle_data["particles"], potential, masses)
     current_time = 0.0
     particle_data_log = particle_storage.new_particle_log()
-    particle_storage.log_particle_data(current_time,initial_particle_data["particles"],particle_data_log)
+    particle_storage.log_particle_data(current_time, initial_particle_data["particles"], particle_data_log)
     while(current_time < duration):
         current_particles = particle_storage.get_current_particle_data(particle_data_log)
         updated_particles = update_positions(stepsize, current_particles)
