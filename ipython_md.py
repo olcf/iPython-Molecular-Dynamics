@@ -17,8 +17,6 @@ def transform_initial_data_to_numerical_arrays(particles):
             
 # As given in http://en.wikipedia.org/wiki/Verlet_integration#Velocity_Verlet
 def velocity_verlet(stepsize, potential, position, velocity, acceleration):
-    
-    
     a_plus_one = potential.calculate_acceleration(x_plus_one, other_positions)
     v_plus_one = v_plus_one_half + 0.5 * a_plus_one * stepsize
     return store_single_particle(x_plus_one, v_plus_one, a_plus_one)
@@ -31,7 +29,6 @@ def apply_next_timestep(stepsize, potential, particles):
         acceleration = particle["acceleration"]
         updated_particles.append(velocity_verlet(stepsize, potential, position, velocity, acceleration))
     return updated_particles
-
 
 def embed_initial_accelerations(particle_data, potential, masses):
     accelerations = dynamics.generate_accelerations(particle_data, potential, masses)
