@@ -1,0 +1,6 @@
+{
+	"particles":[
+		{"mass": 1, "position": [0,0,0], "velocity": [0.0, 0.0, 0.0]},
+		{"mass": 1, "position": [0,1,0], "velocity": [0.0, 0.5, 0.0]}
+		]
+}
